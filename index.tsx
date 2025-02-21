@@ -73,3 +73,22 @@ formatCar({
   make: "Ford",
   model: "Mustang",
 });
+
+// 428. Using Interfaces to Annotate Props
+// 리액트 프로젝트에서 여러 Prop들의 타입을 정의할 때, 코드가 너무 길어지는 것을 막기 위해 항상 '컴포넌트'+'Props' 이름의 interface를 만들어 타입을 정의하자!
+import React from "react";
+
+interface TaskShowProps {
+  title: string;
+  completed: boolean;
+}
+
+function TaskShow({ title, completed }: TaskShowProps) {
+  return (
+    <div>
+      {title} - {completed ? "Done" : "Need to complete"}
+    </div>
+  );
+}
+
+<TaskShow title="write an interface" completed={true} />;
