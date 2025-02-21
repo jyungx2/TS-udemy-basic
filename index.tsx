@@ -22,9 +22,11 @@ const ages: number[] = [20, 30, 40];
 const areColorsRed: boolean[] = [true, false, false];
 
 // EX1)
-function add(a: number, b: number): number {
-  return a + b;
+function add(a: number, b: number) {
+  return a + b; // :number (return annotation 필요❌)
 }
+
+const sum = add(1, 6); // sum must be a number(TS can guess)
 
 // EX2)
 function printColors(colors: string[]) {
@@ -32,7 +34,20 @@ function printColors(colors: string[]) {
 }
 printColors(["asdf", "asdf", 123]); // 🚨 error
 
+// EX3)
 function printAge(age: number) {
   console.log(age);
 }
 printAge(true); // 🚨 error
+
+// 📌 Type Inference
+// TS is smart! It can guess the types of your variables.
+// So we don't have to add in type annotations all over the place.
+
+// EX)
+const hour = 20;
+const you = "Mike";
+
+function getName() {
+  return "Me"; // :string (return annotation 필요❌)
+}
