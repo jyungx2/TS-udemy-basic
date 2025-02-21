@@ -20,3 +20,19 @@ const age: number = 25;
 const colors: string[] = ["red", "green", "blue"];
 const ages: number[] = [20, 30, 40];
 const areColorsRed: boolean[] = [true, false, false];
+
+// EX1)
+function add(a: number, b: number): number {
+  return a + b;
+}
+
+// EX2)
+function printColors(colors: string[]) {
+  console.log(colors);
+}
+printColors(["asdf", "asdf", 123]); // 🚨 error
+
+function printAge(age: number) {
+  console.log(age);
+}
+printAge(true); // 🚨 error
