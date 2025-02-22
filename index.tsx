@@ -208,6 +208,24 @@ function logOutput(value: string | number | string[] | Image) {
     value.toUpperCase(); // TS knows when the value is only string, this line will be called -> safely call toUpperCase on it.
   }
   value; // value might be string or number or arr of string or obj.
+
+  if (typeof value === "number") {
+    Math.round(value);
+  }
+
+  // 435. Tricky Cases with Type Guards
+  // Array is also an object. -> TRICKY!!!
+  if (typeof value === "object") {
+    value; // narrow down value to being either 'Image' | 'string[]'
+  }
+
+  if (Array.isArray(value)) {
+    value.join(""); // This only can be string[].
+  }
+
+  if (typeof value === "object" && !Array.isArray(value)) {
+    value.src; // This only can be Image(obj).
+  }
 }
 
 logOutput("hi there");
