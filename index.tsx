@@ -202,7 +202,13 @@ interface Image {
   src: String;
 }
 
-function logOutput(value: string | number | string[] | Image) {}
+function logOutput(value: string | number | string[] | Image) {
+  // if value is a string... (434. Type Narrowing)
+  if (typeof value === "string") {
+    value.toUpperCase(); // TS knows when the value is only string, this line will be called -> safely call toUpperCase on it.
+  }
+  value; // value might be string or number or arr of string or obj.
+}
 
 logOutput("hi there");
 logOutput(123);
