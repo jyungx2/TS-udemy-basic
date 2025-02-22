@@ -92,3 +92,27 @@ function TaskShow({ title, completed }: TaskShowProps) {
 }
 
 <TaskShow title="write an interface" completed={true} />;
+
+// 429. Downsides to Type Inference
+interface Car2 {
+  model: string;
+  year: number;
+}
+
+function printCar(car: Car2) {
+  console.log(car);
+}
+
+// ✅ You should put on a type annotation to have TS check your work and make sure that you defined this object correctly.
+const mustang: Car2 = {
+  model: "Mustang",
+  year: 2019,
+};
+
+const camaro: Car2 = {
+  model: "Camaro",
+  year: "2010", // 🚨 Type 'string' is not assignable to type 'number'
+};
+
+printCar(mustang);
+printCar(camaro); // 🚨 error (year 키에는 넘버 밸류만 가능한데 스트링이 왔으므로.. 이러한 에러 방지하기 위해 사용할 오브젝트에 먼저 type annotation을 체크하고 넘어가자! -> ✅)
