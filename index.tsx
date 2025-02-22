@@ -144,3 +144,29 @@ const mustang: Car3 = {
 
 // 🖍️ 경고표시에서 뜰 때 interface에서 설정한 매개변수 이름이 뜨게 된다.
 mustang.setYear(); // An argument for 'fsdfqdkmsa' was not provided.
+
+// 431. Function Types in Props Interfaces
+// import React from "react";
+
+interface ColorPickerProps {
+  colors: string[];
+  handleColorSelect: (color: string) => void;
+}
+
+function ColorPicker({ colors, handleColorSelect }: ColorPickerProps) {
+  const renderedColors = colors.map((color) => {
+    return (
+      <button key={color} onClick={() => handleColorSelect(color)}>
+        {color}
+      </button>
+    );
+  });
+
+  return <div>{renderedColors}</div>;
+}
+
+<ColorPicker
+  colors={["red", "green", "blue"]}
+  // handleColorSelect={(color: string) => console.log(color)}
+  handleColorSelect={(color) => console.log(color)} // TS knows what to expect for prop(color: string). (Only works when we're passing this function directly into this prop.)
+/>;
