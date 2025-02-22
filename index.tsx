@@ -104,10 +104,10 @@ function printCar(car: Car2) {
 }
 
 // ✅ You should put on a type annotation to have TS check your work and make sure that you defined this object correctly.
-const mustang: Car2 = {
-  model: "Mustang",
-  year: 2019,
-};
+// const mustang: Car2 = {
+//   model: "Mustang",
+//   year: 2019,
+// };
 
 const camaro: Car2 = {
   model: "Camaro",
@@ -116,3 +116,31 @@ const camaro: Car2 = {
 
 printCar(mustang);
 printCar(camaro); // 🚨 error (year 키에는 넘버 밸류만 가능한데 스트링이 왔으므로.. 이러한 에러 방지하기 위해 사용할 오브젝트에 먼저 type annotation을 체크하고 넘어가자! -> ✅)
+
+// 430. Function Types
+interface Car3 {
+  model: string;
+  year: number;
+  setYear: (fsdfqdkmsa: number) => void;
+  // ✅ void === I've got a function that doesn't return anything.
+  // ✅ nextYear can be any name that doens't match actual name of the parameter.
+  setModel: (nextModel: string) => void;
+  getDescription: () => string;
+}
+
+const mustang: Car3 = {
+  model: "Mustang",
+  year: 2019,
+  setYear(nextYear: number) {
+    this.year = nextYear;
+  },
+  setModel(nextModel: string) {
+    this.model = nextModel;
+  },
+  getDescription() {
+    return `Year: ${this.year}, Model: ${this.model}`;
+  },
+};
+
+// 🖍️ 경고표시에서 뜰 때 interface에서 설정한 매개변수 이름이 뜨게 된다.
+mustang.setYear(); // An argument for 'fsdfqdkmsa' was not provided.
