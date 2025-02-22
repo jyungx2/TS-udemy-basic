@@ -196,3 +196,16 @@ function IconButton({ label, onClick, icon }: IconButtonProps) {
     </button>
   );
 }
+
+// 433. Type Unions
+interface Image {
+  src: String;
+}
+
+function logOutput(value: string | number | string[] | Image) {}
+
+logOutput("hi there");
+logOutput(123);
+logOutput(["hi", "there"]);
+logOutput({ src: "img.jpg" });
+logOutput(true); // 🚨 error (boolean isn't specified)
