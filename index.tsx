@@ -199,9 +199,42 @@ function IconButton({ label, onClick, icon }: IconButtonProps) {
 
 // 433. Type Unions
 interface Image {
-  src: String;
+  src: string;
 }
 
+interface User {
+  username: string;
+}
+
+// 436. Type Predicates
+function isUser(value: Image | User): value is User {
+  return "username" in value; // This can be true only if value is User obj.
+}
+
+function logOutput(value: Image | User) {
+  // if (typeof value === "object") {
+  //   value;
+  // }
+
+  // 1️⃣'in' operator (to check if there's a certain property in the object)
+  // if ("username" in value) {
+  if (isUser(value)) {
+    // 2️⃣Or you can use 'Type Predicate' (=function that's gonna narrow down a type for you).
+    value; // This can be only 'User' obj.
+    console.log(value.username);
+  } else {
+    console.log(value.src);
+  }
+
+  // if ("src" in value) {
+  //   console.log(value.src);
+  // }
+}
+
+logOutput({ src: "img.jpg" });
+logOutput({ username: "jiyoung" });
+
+/*
 function logOutput(value: string | number | string[] | Image) {
   // if value is a string... (434. Type Narrowing)
   if (typeof value === "string") {
@@ -233,3 +266,4 @@ logOutput(123);
 logOutput(["hi", "there"]);
 logOutput({ src: "img.jpg" });
 logOutput(true); // 🚨 error (boolean isn't specified)
+*/
