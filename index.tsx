@@ -170,3 +170,29 @@ function ColorPicker({ colors, handleColorSelect }: ColorPickerProps) {
   // handleColorSelect={(color: string) => console.log(color)}
   handleColorSelect={(color) => console.log(color)} // TS knows what to expect for prop(color: string). (Only works when we're passing this function directly into this prop.)
 />;
+
+// 432. Extending an Interface
+interface ButtonProps {
+  label: string;
+  onClick: () => void;
+}
+
+function Button({ label, onClick }: ButtonProps) {
+  return <button onClick={() => onClick()}>{label}</button>;
+}
+
+// 겹치는 prop 타입 주석은 반복해서 쓰지 말고, extends 키워드를 이용하여 가져오자!
+interface IconButtonProps extends ButtonProps {
+  // label: string;
+  // onClick: () => void;
+  icon: string;
+}
+
+function IconButton({ label, onClick, icon }: IconButtonProps) {
+  return (
+    <button onClick={() => onClick()}>
+      {icon}
+      {label}
+    </button>
+  );
+}
