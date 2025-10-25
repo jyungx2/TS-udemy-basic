@@ -103,19 +103,19 @@ function printCar(car: Car2) {
   console.log(car);
 }
 
-// ✅ You should put on a type annotation to have TS check your work and make sure that you defined this object correctly.
-// const mustang: Car2 = {
-//   model: "Mustang",
-//   year: 2019,
-// };
+// ✅ You should put on a type annotation to have TS check your work and make sure that you defined "this object" correctly.
+const mustang2: Car2 = {
+  model: "Mustang",
+  year: 2019,
+};
 
 const camaro: Car2 = {
   model: "Camaro",
   year: "2010", // 🚨 Type 'string' is not assignable to type 'number'
 };
 
-printCar(mustang);
-printCar(camaro); // 🚨 error (year 키에는 넘버 밸류만 가능한데 스트링이 왔으므로.. 이러한 에러 방지하기 위해 사용할 오브젝트에 먼저 type annotation을 체크하고 넘어가자! -> ✅)
+printCar(mustang2);
+printCar(camaro); // 🚨 error (year 키에는 넘버 밸류만 가능한데 스트링이 왔으므로.. 이러한 에러 방지하기 위해 "사용할 오브젝트"에 먼저 type annotation을 체크하고 넘어가자! -> ✅)
 
 // 430. Function Types
 interface Car3 {
@@ -206,7 +206,12 @@ interface User {
   username: string;
 }
 
-// 436. Type Predicates
+// 436. Type Predicates (= predicate = “참(true)인지 거짓(false)인지 판별하는 함수)
+// ☑️ value is User ===> “이 함수가 true를 반환하는 분기에서는 value가 User 타입임을 컴파일러에게 보장한다”
+// 이 함수가 true를 리턴하면 호출한 쪽의 제어 흐름 안에서 value가 User로 좁혀(narrow)지므로, false면 Image로 좁혀짐
+
+// ☑️ 컴파일러가 믿는 약속
+// 내부 구현은 아무 boolean이나 리턴할 수 있지만, 타입 시스템은 당신이 올바르게 구현했다고 신뢰합니다. 만약 실제로는 User가 아닌데 true를 반환하면, 컴파일러는 User라고 믿고 value.username 접근을 허용하므로 런타임 오류가 날 수 있어요. (즉, 정확한 판별 로직을 넣는 게 중요)
 function isUser(value: Image | User): value is User {
   return "username" in value; // This can be true only if value is User obj.
 }
@@ -267,3 +272,34 @@ logOutput(["hi", "there"]);
 logOutput({ src: "img.jpg" });
 logOutput(true); // 🚨 error (boolean isn't specified)
 */
+
+// 434. Optional Properties
+interface UserProfile {
+  likes: string[];
+}
+
+interface User {
+  id: string;
+  username: string;
+  profile?: UserProfile; // ?: optional properties
+}
+
+const user: User = {
+  id: "abc",
+  username: "me",
+  profile: {
+    likes: ["cats"],
+  },
+};
+
+// ?: optional properties -> 2번째 매개변수인 message는 있을 수도, 없을 수도 있음!
+function logValue(value: string, message?: string) {
+  if (message) {
+    console.log(message, value);
+  } else {
+    console.log(value);
+  }
+}
+
+logValue("lskfsjk"); // 에러 발생 X
+logValue("lskfsjk", "message is here!");
