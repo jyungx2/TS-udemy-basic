@@ -382,3 +382,27 @@ async function fetchBook_withGuard(): Promise<Book> {
   }
   throw new Error("Expected to get a Book, but didn't");
 }
+
+// 439. Type Aliases
+// type <-> inteface: 둘 중에 어떤 걸 어느 상황에 써야할까?
+// interface
+// 1. 순수 객체 형태(필드/메서드가 있는 구조)를 정적 서술할 때 적합.
+// 2. interface는 “객체 형태(object shape)”를 확장하는 데 최적화 -> extends로 다른 인터페이스(여러 개 가능)를 자연스럽게 확장가능.
+
+interface Image {
+  src: string;
+}
+
+// type
+// 1. 유니온, 튜플, 템플릿 리터럴, 조건부 타입, 매핑 타입 같은 “계산된 타입”이 필요할 때는 type이 사실상 필수.
+// 2. type에는 extends 키워드가 없고, 대신 교차 타입(intersection) "&"로 합침.
+// ---------------------------
+type A = { a: number };
+type B = { b: string };
+type AB = A & B; // A와 B를 모두 만족
+// ---------------------------
+type LoggableValue = string | number | string[] | Image;
+
+function logValue2(value: LoggableValue) {
+  console.log(value);
+}
